@@ -1,0 +1,197 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a NodeJS powered API service for card game",
+    "version": "1.0.0",
+    "title": "Card Game",
+    "termsOfService": "",
+    "contact": {
+      "email": "hassan.imam@nagarro.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:8000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "card",
+      "description": "Operation about card"
+    },
+    {
+      "name": "score",
+      "description": "Operations about the score"
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/card": {
+      "get": {
+        "tags": ["card"],
+        "summary": "Get 10 random card from deck",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cards": {
+                  "$ref": "#/definitions/Cards"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/score": {
+      "get": {
+        "tags": ["score"],
+        "summary": "Get the list of scores",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scores": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Score"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "post": {
+        "tags": ["score"],
+        "summary": "Add new score",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/score/reset": {
+      "get": {
+        "tags": ["score"],
+        "summary": "Reset the score",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Card": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Card Value"
+        },
+        "code": {
+          "type": "string",
+          "description": "Card Code"
+        },
+        "images": {
+          "type": "object",
+          "properties": {
+            "svg": {
+              "type": "string",
+              "description": "SVG image link"
+            },
+            "png": {
+              "type": "string",
+              "description": "PNG image link"
+            }
+          }
+        },
+        "suits": {
+          "type": "string",
+          "description": "Suit of the Card"
+        },
+        "image": {
+          "type": "string",
+          "description": "Image link"
+        }
+      }
+    },
+    "Cards": {
+      "type": "object",
+      "properties": {
+        "remaining": {
+          "type": "number",
+          "description": "No of remaining cards"
+        },
+        "deck_id": {
+          "type": "string",
+          "description": "Id of the deck"
+        },
+        "success": {
+          "type": "boolean",
+          "description": "Status of the request"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Card"
+          }
+        }
+      }
+    },
+    "Score": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the user"
+        },
+        "score": {
+          "type": "number",
+          "description": "Score"
+        }
+      }
+    }
+  }
+}
